@@ -5,14 +5,9 @@ import Rating from '@mui/material/Rating'
 
 import useStyle from './styles'
 
-const Map = ({ setCoordinates, setBounds, coordinates }) => {
+const Map = ({ setCoordinates, setBounds, coordinates, places, childClicked, setChildClicked }) => {
   const classes = useStyle()
-  const isMobile = useMediaQuery('(min-width:600px)')
-
-  const onChange = () => {
-  }
-  const onChildClick = () => {
-  }
+  const isDesktop = useMediaQuery('(min-width:600px)')
 
   return (
       <div className={classes.mapContainer}>
@@ -24,13 +19,35 @@ const Map = ({ setCoordinates, setBounds, coordinates }) => {
             margin={[50, 50, 50, 50]}
             options={''}
             onChange={(e) => {
-              setCoordinates({ lat: e.center.lat, lng: e.center.lng })
+              setCoordinates({ lat: Number(e.center.lat), lng: Number(e.center.lng) })
               setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw })
             }}
-            onChildClick={onChildClick}
-            yesIWantToUseGoogleMapApiInternals={true}
+            onChildClick={(child) => setChildClicked(child)}
         >
-
+          {places.length && places?.map((place, id) =>
+              <div
+                  className={classes.markerContainer}
+                  lat={Number(place?.latitude ? place.latitude : 0)}
+                  lng={Number(place?.longitude ? place.longitude : 0)}
+                  key={id}
+              >
+                {!isDesktop ?
+                    <LocationOnOutlinedIcon color="primary" fontSize="large"/>
+                    :
+                    <Paper elevation={3} className={classes.paper}>
+                      <Typography className={classes.typography} variant="subtitles2" gutterBottom>
+                        {place.name}
+                      </Typography>
+                      <img
+                          className={classes.pointer}
+                          src={place?.photo ? place.photo.images.small.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
+                          alt={place?.name}
+                      />
+                      <Rating size="small" value={Number(place?.rating ? place.rating : 0)} readOnly/>
+                    </Paper>
+                }
+              </div>
+          )}
         </GoogleMapReact>
       </div>
   )
