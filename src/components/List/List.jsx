@@ -3,17 +3,11 @@ import useStyles from './styles'
 import { useState } from 'react'
 import PlaceDetails from '../PlaceDetails/PlaceDetails'
 
-const List = () => {
+const List = ({ places }) => {
   const classes = useStyles()
   const [type, setType] = useState('restaurants')
   const [rating, setRating] = useState("0")
 
-  const places = [
-    { name: 'Best Place' },
-    { name: 'Cool Beer' },
-    { name: 'Tasty Steak' },
-    { name: 'Nice Girl' }
-  ]
 
   return (
       <div className={classes.container}>
@@ -39,7 +33,7 @@ const List = () => {
         </FormControl>
         <Grid container spacing={3} className={classes.list}>
           {places?.map((place, i) =>
-              <Grid item id={i} xs={12}>
+              <Grid item key={i} xs={12}>
                 <PlaceDetails place={place}/>
               </Grid>
           )}

@@ -7,8 +7,6 @@ import useStyle from './styles';
 const Header = ({ onPlaceChanged, onLoad }) => {
 
   const classes = useStyle()
-  console.log(classes)
-
 
   return (
       <AppBar position="static">
