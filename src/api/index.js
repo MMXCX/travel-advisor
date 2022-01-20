@@ -1,16 +1,14 @@
 import axios from 'axios'
 
 
-const URL = 'https://travel-advisor.p.rapidapi.com/restaurants/list-in-boundary'
-
-export const getPlacesData = async (ne, sw) => {
+export const getPlacesData = async (type, ne, sw) => {
   try {
-    const { data: { data } } = await axios.get(URL, {
+    const { data: { data } } = await axios.get(`https://travel-advisor.p.rapidapi.com/${type}/list-in-boundary`, {
       params: {
         bl_latitude: sw.lat,
         tr_latitude: ne.lat,
         bl_longitude: sw.lng,
-        tr_longitude: ne.lng,
+        tr_longitude: ne.lng
       },
       headers: {
         'x-rapidapi-host': 'travel-advisor.p.rapidapi.com',
@@ -24,7 +22,7 @@ export const getPlacesData = async (ne, sw) => {
   }
 }
 
-export const getPlacesDataSim = [
+export const getPlacesDataSim = (type) => [
   {
     "location_id": "14008644",
     "name": "Hookah Place by Smokkin",
@@ -6014,5 +6012,223 @@ export const getPlacesDataSim = [
     ]
   }
 ]
+
+export const getWeatherData = async (lan, lng) => {
+  try {
+    const { data } = await axios.get('https://community-open-weather-map.p.rapidapi.com/find', {
+      params: {
+        lon: lng,
+        lat: lan
+      },
+      headers: {
+        'x-rapidapi-host': 'community-open-weather-map.p.rapidapi.com',
+        'x-rapidapi-key': process.env.REACT_APP_RAPID_API_KEY
+      }
+    })
+
+    return data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const getWeatherDataSim = (lan, lng) => {
+  return {
+    "message": "accurate",
+    "cod": "200",
+    "count": 5,
+    "list": [
+      {
+        "id": 623109,
+        "name": "Prigorod Kolozha",
+        "coord": {
+          "lat": 53.6833,
+          "lon": 23.8167
+        },
+        "main": {
+          "temp": 273.69,
+          "feels_like": 267.53,
+          "temp_min": 273.69,
+          "temp_max": 274.12,
+          "pressure": 998,
+          "humidity": 93
+        },
+        "dt": 1642666145,
+        "wind": {
+          "speed": 8,
+          "deg": 250
+        },
+        "sys": {
+          "country": "BY"
+        },
+        "rain": null,
+        "snow": null,
+        "clouds": {
+          "all": 90
+        },
+        "weather": [
+          {
+            "id": 804,
+            "main": "Clouds",
+            "description": "overcast clouds",
+            "icon": "04d"
+          }
+        ]
+      },
+      {
+        "id": 627904,
+        "name": "Hrodna",
+        "coord": {
+          "lat": 53.6884,
+          "lon": 23.8258
+        },
+        "main": {
+          "temp": 273.65,
+          "feels_like": 267.47,
+          "temp_min": 273.65,
+          "temp_max": 274.07,
+          "pressure": 998,
+          "humidity": 93
+        },
+        "dt": 1642666144,
+        "wind": {
+          "speed": 8,
+          "deg": 250
+        },
+        "sys": {
+          "country": "BY"
+        },
+        "rain": null,
+        "snow": null,
+        "clouds": {
+          "all": 90
+        },
+        "weather": [
+          {
+            "id": 804,
+            "main": "Clouds",
+            "description": "overcast clouds",
+            "icon": "04d"
+          }
+        ]
+      },
+      {
+        "id": 8075472,
+        "name": "Koshovniki",
+        "coord": {
+          "lat": 53.6506,
+          "lon": 23.8973
+        },
+        "main": {
+          "temp": 273.73,
+          "feels_like": 267.58,
+          "temp_min": 273.73,
+          "temp_max": 274.16,
+          "pressure": 998,
+          "humidity": 93
+        },
+        "dt": 1642666433,
+        "wind": {
+          "speed": 8,
+          "deg": 250
+        },
+        "sys": {
+          "country": "BY"
+        },
+        "rain": null,
+        "snow": null,
+        "clouds": {
+          "all": 90
+        },
+        "weather": [
+          {
+            "id": 804,
+            "main": "Clouds",
+            "description": "overcast clouds",
+            "icon": "04d"
+          }
+        ]
+      },
+      {
+        "id": 624265,
+        "name": "Obukhovo",
+        "coord": {
+          "lat": 53.6051,
+          "lon": 24.0814
+        },
+        "main": {
+          "temp": 274.13,
+          "feels_like": 268.1,
+          "temp_min": 273.7,
+          "temp_max": 274.13,
+          "pressure": 998,
+          "humidity": 93
+        },
+        "dt": 1642665911,
+        "wind": {
+          "speed": 8,
+          "deg": 250
+        },
+        "sys": {
+          "country": "BY"
+        },
+        "rain": {
+          "1h": 0.15
+        },
+        "snow": null,
+        "clouds": {
+          "all": 90
+        },
+        "weather": [
+          {
+            "id": 500,
+            "main": "Rain",
+            "description": "light rain",
+            "icon": "10d"
+          }
+        ]
+      },
+      {
+        "id": 766927,
+        "name": "Kuźnica",
+        "coord": {
+          "lat": 53.5109,
+          "lon": 23.6495
+        },
+        "main": {
+          "temp": 273.77,
+          "feels_like": 267.09,
+          "temp_min": 272.54,
+          "temp_max": 273.99,
+          "pressure": 999,
+          "humidity": 71,
+          "sea_level": 999,
+          "grnd_level": 980
+        },
+        "dt": 1642666159,
+        "wind": {
+          "speed": 9.52,
+          "deg": 258
+        },
+        "sys": {
+          "country": "PL"
+        },
+        "rain": null,
+        "snow": null,
+        "clouds": {
+          "all": 100
+        },
+        "weather": [
+          {
+            "id": 804,
+            "main": "Clouds",
+            "description": "overcast clouds",
+            "icon": "04d"
+          }
+        ]
+      }
+    ]
+  }
+}
 
 

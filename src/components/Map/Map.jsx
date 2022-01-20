@@ -4,8 +4,9 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 import Rating from '@mui/material/Rating'
 
 import useStyle from './styles'
+import mapStyles from './mapStyles'
 
-const Map = ({ setCoordinates, setBounds, coordinates, places, childClicked, setChildClicked }) => {
+const Map = ({ setCoordinates, setBounds, coordinates, places, childClicked, setChildClicked, weatherData }) => {
   const classes = useStyle()
   const isDesktop = useMediaQuery('(min-width:600px)')
 
@@ -17,7 +18,7 @@ const Map = ({ setCoordinates, setBounds, coordinates, places, childClicked, set
             center={coordinates}
             defaultZoom={14}
             margin={[50, 50, 50, 50]}
-            options={''}
+            options={{ disableDefaultUI: true, zoomControl: true }}
             onChange={(e) => {
               setCoordinates({ lat: Number(e.center.lat), lng: Number(e.center.lng) })
               setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw })
@@ -46,6 +47,12 @@ const Map = ({ setCoordinates, setBounds, coordinates, places, childClicked, set
                       <Rating size="small" value={Number(place?.rating ? place.rating : 0)} readOnly/>
                     </Paper>
                 }
+              </div>
+          )}
+          {weatherData?.list?.map((data, id) =>
+              <div key={id} lat={data.coord.lat} lng={data.coord.lon}>
+                <img height={100} src={`https://openweathermap.org/img/w/${data.weather[0].icon}.png`} alt=""/>
+                <Typography gutterBottom variant="suvtitle1">{data.name}</Typography>
               </div>
           )}
         </GoogleMapReact>

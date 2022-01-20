@@ -3,10 +3,9 @@ import useStyles from './styles'
 import { useState, useEffect, createRef } from 'react'
 import PlaceDetails from '../PlaceDetails/PlaceDetails'
 
-const List = ({ places, childClicked, isLoading }) => {
+const List = ({ places, childClicked, isLoading, type, setType, rating, setRating }) => {
   const classes = useStyles()
-  const [type, setType] = useState('restaurants')
-  const [rating, setRating] = useState("0")
+
   const [elRefs, setElRefs] = useState([])
 
 
